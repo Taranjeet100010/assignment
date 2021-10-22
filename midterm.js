@@ -97,10 +97,13 @@ console.log(calculateCost({
 }));
 
 let vehicles1 = vehicles;
-
+let totalInventoryCost =0;
+let totalInventory =0;
 function calculateInventoryCost() {
 
     vehicles = vehicles.map(vehicle => {
+        totalInventoryCost = Number(totalInventoryCost) +(vehicle.inventory * vehicle.unitPrice);
+        totalInventory = Number(totalInventory) + vehicle.inventory;
         let str = `(${vehicle.inventory}) with total inventory cost of $${vehicle.inventory * vehicle.unitPrice}`;
         return str;
     });
@@ -111,7 +114,7 @@ console.log(calculateInventoryCost());
 
 function conditionBasedData(n) {
     let v = [];
-    vehicles1 = vehicles1.filter(vehicle => {
+    vehicles1.filter(vehicle => {
         if (vehicle.inventory <= n) {
             let str = `(${vehicle.inventory}) with total inventory cost of $${vehicle.inventory * vehicle.unitPrice}`;
             v.push(str);
@@ -121,7 +124,6 @@ function conditionBasedData(n) {
     if (v && v.length < 1) {
         v = ["No data can be matched with given condition"];
     }
-
     return v;
 }
 
@@ -129,3 +131,6 @@ let data = conditionBasedData(5);
 data.forEach(d=>{
     console.log(d);
 })
+
+
+console.log(`The average of total inventory sold for products is : ${parseFloat(totalInventoryCost/totalInventory).toFixed(2)}`)
