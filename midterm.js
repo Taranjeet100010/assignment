@@ -2,7 +2,7 @@ let vehicles = [
     {
         id: 1,
         productName: "Cars",
-        inventory: 40,
+        inventory: 4,
         unitsSold: 30,
         unitPrice: 684,
         brand: ["Tesla", "Daimler", "Toyota", "Ferrari"]
@@ -10,7 +10,7 @@ let vehicles = [
     {
         id: 2,
         productName: "Trucks",
-        inventory: 20,
+        inventory: 2,
         unitsSold: 50,
         unitPrice: 159,
         brand: ["Ducati", "Ferrari", "BMW", "Hyundai"]
@@ -96,16 +96,36 @@ console.log(calculateCost({
     brand: ["Honda", "Nissan", "Volkswagen"]
 }));
 
+let vehicles1 = vehicles;
 
-function calculateInventoryCost(obj) {
-    obj.brand.forEach(brand => {
-        let totalInventoryCost = 0;
-        vehicles.forEach(vehicle => {
-            if (vehicle.brand.includes(brand)) {
-                totalInventoryCost = Number(totalInventoryCost) + vehicle;
-            }
-        });
+function calculateInventoryCost() {
 
-    })
+    vehicles = vehicles.map(vehicle => {
+        let str = `(${vehicle.inventory}) with total inventory cost of $${vehicle.inventory * vehicle.unitPrice}`;
+        return str;
+    });
+    return vehicles;
 }
 
+console.log(calculateInventoryCost());
+
+function conditionBasedData(n) {
+    let v = [];
+    vehicles1 = vehicles1.filter(vehicle => {
+        if (vehicle.inventory <= n) {
+            let str = `(${vehicle.inventory}) with total inventory cost of $${vehicle.inventory * vehicle.unitPrice}`;
+            v.push(str);
+        }
+    });
+
+    if (v && v.length < 1) {
+        v = ["No data can be matched with given condition"];
+    }
+
+    return v;
+}
+
+let data = conditionBasedData(5);
+data.forEach(d=>{
+    console.log(d);
+})
